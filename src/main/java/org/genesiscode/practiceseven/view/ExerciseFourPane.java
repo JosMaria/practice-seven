@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFour;
+import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.four.RowInputData;
 
 import java.util.List;
@@ -44,7 +45,8 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void click_btn_add() {
-        System.out.println("Agregar");
+        List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
+        tableRandomNumbers.setItems(exerciseFour.getList(randomNumbers));
     }
 
     private void buildPane() {

@@ -37,4 +37,15 @@ public class ExerciseFour {
     public ObservableList<RowInputData> getListToTableOfCustomerArrival() {
         return listToTableOfCustomerArrival;
     }
+
+    public ObservableList<RowInputData> getList(List<Double> randomNumbers) {
+        this.randomNumbers = randomNumbers;
+        ObservableList<RowInputData> list = FXCollections.observableArrayList();
+        int counter = 1;
+        for (Double randomNumber : this.randomNumbers) {
+            list.add(new RowInputData(counter, randomNumber));
+            counter++;
+        }
+        return list;
+    }
 }
