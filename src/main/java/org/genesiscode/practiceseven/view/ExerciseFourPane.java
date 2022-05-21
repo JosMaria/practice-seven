@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.genesiscode.practiceseven.service.ExerciseFour;
 import org.genesiscode.practiceseven.view.row.four.RowInputData;
 
 import java.util.List;
@@ -12,12 +13,14 @@ import java.util.List;
 public class ExerciseFourPane extends MyPane {
 
     private static ExerciseFourPane exerciseFourPane;
+    private final ExerciseFour exerciseFour;
     private TableView<RowInputData> tableRandomNumbers, tableOfTime, tableOfCustomerArrival;
     private TextField txtRandomNumbers;
     private Button btnAdd;
 
     public ExerciseFourPane() {
         super("EJERCICIO 4");
+        exerciseFour = new ExerciseFour();
         loadControls();
         buildPane();
     }
@@ -67,18 +70,20 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void buildTableOfTime() {
-        TableColumn<RowInputData, Integer> colRow = column("Tiempo de\nservicio", "data", 90);
+        TableColumn<RowInputData, Integer> colRow = column("Tiempo de\nservicio", "data", 80);
         TableColumn<RowInputData, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 110);
         tableOfTime.getColumns().addAll(List.of(colRow, colRandomNumbers));
-        tableOfTime.setPrefHeight(150);
-        tableOfTime.setPrefWidth(200);
+        tableOfTime.setPrefHeight(160);
+        tableOfTime.setPrefWidth(220);
+        tableOfTime.setItems(exerciseFour.getListToTableOfTime());
     }
 
     private void buildTableOfCustomerArrival() {
         TableColumn<RowInputData, Integer> colRow = column("Tiempo entre\nlas llegadas", "data", 120);
         TableColumn<RowInputData, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 120);
         tableOfCustomerArrival.getColumns().addAll(List.of(colRow, colRandomNumbers));
-        tableOfCustomerArrival.setPrefHeight(150);
-        tableOfCustomerArrival.setPrefWidth(240);
+        tableOfCustomerArrival.setPrefHeight(160);
+        tableOfCustomerArrival.setPrefWidth(260);
+        tableOfCustomerArrival.setItems(exerciseFour.getListToTableOfCustomerArrival());
     }
 }
