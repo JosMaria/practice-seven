@@ -21,7 +21,7 @@ public class ExerciseFourPane extends MyPane {
 
     private static ExerciseFourPane exerciseFourPane;
     private final ExerciseFour exerciseFour;
-    private TableView<RowInputData> tableRandomNumbers, tableOfTime, tableOfCustomerArrival;
+    private TableView<RowInputData> tableOfTime, tableOfCustomerArrival;
     private TableView<RowDataProcessed> tableDataOfTime, tableDataOfCustomerArrival;
     private TableView<RowResult> tableResult;
     private TextField txtRandomNumbers;
@@ -44,7 +44,6 @@ public class ExerciseFourPane extends MyPane {
         btnAdd = new Button("Agregar");
         btnAdd.setOnAction(actionEvent -> click_btn_add());
 
-        tableRandomNumbers = new TableView<>();
         buildTableRandomNumbers();
         tableOfTime = new TableView<>();
         buildTableOfTime();
@@ -87,14 +86,6 @@ public class ExerciseFourPane extends MyPane {
         VBox informationPane = new VBox(20, timePane, customerArrivalPane);
         mainPane = new VBox(10, title, new HBox(30, randomNumbersPane, informationPane));
         mainPane.setPadding(new Insets(30));
-    }
-
-    private void buildTableRandomNumbers() {
-        TableColumn<RowInputData, Integer> colRow = column("Fila", "data", 50);
-        TableColumn<RowInputData, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 120);
-        tableRandomNumbers.getColumns().addAll(List.of(colRow, colRandomNumbers));
-        tableRandomNumbers.setPrefWidth(150);
-        tableRandomNumbers.setPrefHeight(300);
     }
 
     private void buildTableOfTime() {
