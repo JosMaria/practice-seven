@@ -72,6 +72,7 @@ public class ExerciseFourPane extends MyPane {
         tableDataOfTime.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfTime()));
         tableDataOfCustomerArrival.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfCustomerArrival()));
         ExerciseFourPaneAssist.show(tableDataOfTime, tableDataOfCustomerArrival, tableResult);
+        tableResult.setItems(exerciseFour.getListResult(tableDataOfTime.getItems(), tableDataOfCustomerArrival.getItems()));
     }
 
     private void buildPane() {
@@ -145,7 +146,7 @@ public class ExerciseFourPane extends MyPane {
                 column("#aleatorio", "randomNumberTwo", 100);
 
         TableColumn<RowResult, Integer> colTService =
-                column("t servicio", "tService", 100);
+                column("t servicio", "timeOfService", 100);
 
         TableColumn<RowResult, String> colStartService =
                 column("Inicio de\nServicio", "startService", 100);
@@ -157,7 +158,7 @@ public class ExerciseFourPane extends MyPane {
                 column("Tiempo de\nespera", "timeWait", 100);
 
         TableColumn<RowResult, Integer> colTimeLeisure =
-                column("Tiempo de\nocio", "colTimeLeisure", 100);
+                column("Tiempo de\nocio", "timeLeisure", 100);
 
         tableResult.getColumns().addAll(List.of(colClient, colRandomNumberOne, colIntervalArrival,
                 colTimeArrival, colRandomNumberTwo, colTService, colStartService, colEndService,

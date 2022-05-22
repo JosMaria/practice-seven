@@ -7,21 +7,21 @@ public class RowResult {
     private int intervalArrival;
     private String timeArrival;
     private double randomNumberTwo;
-    private int tService;
+    private int timeOfService;
     private String startService;
     private String endService;
     private int timeWait;
     private int timeLeisure;
 
     public RowResult(int client, double randomNumberOne, int intervalArrival, String timeArrival,
-                     double randomNumberTwo, int tService, String startService, String endService,
+                     double randomNumberTwo, int timeOfService, String startService, String endService,
                      int timeWait, int timeLeisure) {
         this.client = client;
         this.randomNumberOne = randomNumberOne;
         this.intervalArrival = intervalArrival;
         this.timeArrival = timeArrival;
         this.randomNumberTwo = randomNumberTwo;
-        this.tService = tService;
+        this.timeOfService = timeOfService;
         this.startService = startService;
         this.endService = endService;
         this.timeWait = timeWait;
@@ -68,12 +68,12 @@ public class RowResult {
         this.randomNumberTwo = randomNumberTwo;
     }
 
-    public int gettService() {
-        return tService;
+    public int getTimeOfService() {
+        return timeOfService;
     }
 
-    public void settService(int tService) {
-        this.tService = tService;
+    public void setTimeOfService(int timeOfService) {
+        this.timeOfService = timeOfService;
     }
 
     public String getStartService() {

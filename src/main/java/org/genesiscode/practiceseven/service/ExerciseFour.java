@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import org.genesiscode.practiceseven.service.utils.Decimal;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowResult;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public class ExerciseFour {
@@ -53,7 +55,6 @@ public class ExerciseFour {
 
     public ObservableList<RowDataProcessed> getListToTableOf(ObservableList<RowInputData> listToTableOfTime) {
         ObservableList<RowDataProcessed> list = FXCollections.observableArrayList();
-
         double accumulated = 0.0;
         for (RowInputData row : listToTableOfTime) {
             if (row.getValue() != 0.0) {
@@ -71,5 +72,37 @@ public class ExerciseFour {
             }
         }
         return list;
+    }
+
+    public ObservableList<RowResult> getListResult(ObservableList<RowDataProcessed> tableDataOfTime,
+                                                   ObservableList<RowDataProcessed> tableDataOfCustomerArrival) {
+        ObservableList<RowResult> list = FXCollections.observableArrayList();
+        LocalTime timeOfArrival = LocalTime.of(9, 0), startService, endService = null;
+        for (int i = 0, client = 1; i < randomNumbers.size(); i++, client++) {
+            double randomNumberOne = randomNumbers.get(i);  // print 2
+            i++;
+            int intervalBetweenArrival = getValueGivenInterval(randomNumberOne, tableDataOfCustomerArrival); // print 3
+            timeOfArrival = timeOfArrival.plusMinutes(intervalBetweenArrival);
+            double randomNumberTwo = randomNumbers.get(i);
+            int tService = getValueGivenInterval(randomNumberTwo, tableDataOfTime);
+            startService = endService == null ? timeOfArrival : endService;
+            int timeOfLeisure = endService == null ? intervalBetweenArrival : endService.getMinute() - startService.getMinute();
+            endService = startService.plusMinutes(tService);
+            int timeOfWait = startService.getMinute() - timeOfArrival.getMinute();
+
+            RowResult rowResult = new RowResult(client, randomNumberOne, intervalBetweenArrival,
+                    timeOfArrival.toString(), randomNumberTwo, tService, startService.toString(),
+                    endService.toString(), timeOfWait, timeOfLeisure);
+            list.add(rowResult);
+        }
+        return list;
+    }
+
+    private int getValueGivenInterval(double randomNumber, ObservableList<RowDataProcessed> list) {
+        return list.stream()
+                .filter(row -> row.getStartRange() <= randomNumber && randomNumber < row.getEndRange())
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Doesn't exists interval"))
+                .getData();
     }
 }
