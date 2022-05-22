@@ -8,7 +8,8 @@ public class WindowMain extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new ExerciseFourPane().getMainPane());
+        MenuBarPane menuBar = new MenuBarPane();
+        Scene scene = new Scene(menuBar.getMainPane());
         stage.setTitle("Practica 7");
         stage.setScene(scene);
         stage.show();
