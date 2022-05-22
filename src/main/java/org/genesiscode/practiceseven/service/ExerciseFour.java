@@ -2,6 +2,8 @@ package org.genesiscode.practiceseven.service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.genesiscode.practiceseven.service.utils.Decimal;
+import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowInputData;
 
 import java.util.List;
@@ -45,6 +47,28 @@ public class ExerciseFour {
         for (Double randomNumber : this.randomNumbers) {
             list.add(new RowInputData(counter, randomNumber));
             counter++;
+        }
+        return list;
+    }
+
+    public ObservableList<RowDataProcessed> getListToTableOf(ObservableList<RowInputData> listToTableOfTime) {
+        ObservableList<RowDataProcessed> list = FXCollections.observableArrayList();
+
+        double accumulated = 0.0;
+        for (RowInputData row : listToTableOfTime) {
+            if (row.getValue() != 0.0) {
+                double probability = row.getValue();
+                double startRange = accumulated;
+                accumulated += probability;
+                accumulated = Decimal.getDecimal(2, accumulated);
+                double endRange = accumulated;
+                String range = String.format("[%s - %s)", startRange, endRange);
+
+                RowDataProcessed rowDataProcessed = new RowDataProcessed(probability, accumulated, range, row.getData());
+                list.add(rowDataProcessed);
+                rowDataProcessed.setStartRange(startRange);
+                rowDataProcessed.setEndRange(endRange);
+            }
         }
         return list;
     }

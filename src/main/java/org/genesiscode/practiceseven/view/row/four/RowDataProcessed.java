@@ -6,6 +6,7 @@ public class RowDataProcessed {
     private double accumulatedDistribution;
     private String range;
     private int data;
+    private double startRange, endRange;
 
     public RowDataProcessed(double probability, double accumulatedDistribution, String range, int data) {
         this.probability = probability;
@@ -44,5 +45,21 @@ public class RowDataProcessed {
 
     public void setData(int data) {
         this.data = data;
+    }
+
+    public double getStartRange() {
+        return startRange;
+    }
+
+    public void setStartRange(double startRange) {
+        this.startRange = startRange;
+    }
+
+    public double getEndRange() {
+        return endRange;
+    }
+
+    public void setEndRange(double endRange) {
+        this.endRange = endRange;
     }
 }

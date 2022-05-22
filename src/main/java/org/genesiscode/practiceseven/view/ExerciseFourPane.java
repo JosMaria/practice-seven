@@ -69,6 +69,8 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void click_btn_start() {
+        tableDataOfTime.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfTime()));
+        tableDataOfCustomerArrival.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfCustomerArrival()));
         ExerciseFourPaneAssist.show(tableDataOfTime, tableDataOfCustomerArrival, tableResult);
     }
 
