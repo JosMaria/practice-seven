@@ -2,12 +2,18 @@ package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFour;
 import org.genesiscode.practiceseven.service.utils.Util;
+import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowResult;
 
 import java.util.List;
 
@@ -16,8 +22,10 @@ public class ExerciseFourPane extends MyPane {
     private static ExerciseFourPane exerciseFourPane;
     private final ExerciseFour exerciseFour;
     private TableView<RowInputData> tableRandomNumbers, tableOfTime, tableOfCustomerArrival;
+    private TableView<RowDataProcessed> tableDataOfTime, tableDataOfCustomerArrival;
+    private TableView<RowResult> tableResult;
     private TextField txtRandomNumbers;
-    private Button btnAdd;
+    private Button btnAdd, btnStart;
 
     public ExerciseFourPane() {
         super("EJERCICIO 4");
@@ -42,6 +50,17 @@ public class ExerciseFourPane extends MyPane {
         buildTableOfTime();
         tableOfCustomerArrival = new TableView<>();
         buildTableOfCustomerArrival();
+
+        btnStart = new Button("Empezar");
+        btnStart.setOnAction(actionEvent -> click_btn_start());
+
+        tableDataOfTime = new TableView<>();
+        buildTableDataOfTime("Tiempo\nServicio", tableDataOfTime);
+        tableDataOfCustomerArrival = new TableView<>();
+        buildTableDataOfTime("T entre\nllegadas", tableDataOfCustomerArrival);
+
+        tableResult = new TableView<>();
+        buildTableResult();
     }
 
     private void click_btn_add() {
@@ -49,9 +68,13 @@ public class ExerciseFourPane extends MyPane {
         tableRandomNumbers.setItems(exerciseFour.getList(randomNumbers));
     }
 
+    private void click_btn_start() {
+        ExerciseFourPaneAssist.show(tableDataOfTime, tableDataOfCustomerArrival, tableResult);
+    }
+
     private void buildPane() {
         VBox inputPane = new VBox(10, new Label("Numeros Aleatorios"), txtRandomNumbers, btnAdd);
-        VBox randomNumbersPane = new VBox(10, inputPane, tableRandomNumbers);
+        VBox randomNumbersPane = new VBox(10, inputPane, tableRandomNumbers, btnStart);
         randomNumbersPane.setFillWidth(false);
         randomNumbersPane.setAlignment(Pos.CENTER);
         VBox timePane = new VBox(10, new Label("Datos del tiempo de servicio"), tableOfTime);
@@ -87,5 +110,56 @@ public class ExerciseFourPane extends MyPane {
         tableOfCustomerArrival.setPrefHeight(160);
         tableOfCustomerArrival.setPrefWidth(260);
         tableOfCustomerArrival.setItems(exerciseFour.getListToTableOfCustomerArrival());
+    }
+
+    private void buildTableDataOfTime(String ultColTitle, TableView<RowDataProcessed> table) {
+        TableColumn<RowDataProcessed, Double> colProbability =
+                column("Probabilidad", "probability", 100);
+        TableColumn<RowDataProcessed, Double> colAccumulated =
+                column("Distribucion\nAcumulada", "accumulatedDistribution", 100);
+        TableColumn<RowDataProcessed, String> colRange =
+                column("Rango de\n#s aleatorios", "range", 120);
+        TableColumn<RowDataProcessed, Integer> colData =
+                column(ultColTitle, "data", 100);
+        table.getColumns().addAll(List.of(colProbability, colAccumulated, colRange, colData));
+        table.setPrefWidth(420);
+        table.setPrefHeight(150);
+    }
+
+    private void buildTableResult() {
+        TableColumn<RowResult, Integer> colClient =
+                column("client", "client", 80);
+
+        TableColumn<RowResult, Double> colRandomNumberOne =
+                column("#aleatorio", "randomNumberOne", 100);
+
+        TableColumn<RowResult, Integer> colIntervalArrival =
+                column("Intervalo\nLlegada", "intervalArrival", 100);
+
+        TableColumn<RowResult, String> colTimeArrival =
+                column("hora de\nllegada", "timeArrival", 100);
+
+        TableColumn<RowResult, Double> colRandomNumberTwo =
+                column("#aleatorio", "randomNumberTwo", 100);
+
+        TableColumn<RowResult, Integer> colTService =
+                column("t servicio", "tService", 100);
+
+        TableColumn<RowResult, String> colStartService =
+                column("Inicio de\nServicio", "startService", 100);
+
+        TableColumn<RowResult, String> colEndService =
+                column("fin de\nservicio", "endService", 100);
+
+        TableColumn<RowResult, Integer> colTimeWait =
+                column("Tiempo de\nespera", "timeWait", 100);
+
+        TableColumn<RowResult, Integer> colTimeLeisure =
+                column("Tiempo de\nocio", "colTimeLeisure", 100);
+
+        tableResult.getColumns().addAll(List.of(colClient, colRandomNumberOne, colIntervalArrival,
+                colTimeArrival, colRandomNumberTwo, colTService, colStartService, colEndService,
+                colTimeWait, colTimeLeisure));
+        tableResult.setPrefHeight(200);
     }
 }
