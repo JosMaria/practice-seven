@@ -9,13 +9,15 @@ import java.util.List;
 public class ExerciseFive {
 
     private ObservableList<RowInputData> listToTableInputData;
+    private List<Double> randomNumbers;
 
     public ExerciseFive() {
         load();
     }
 
     private void load() {
-        List<RowInputData> listToTableInputData = List.of(new RowInputData(2300, 0.15),
+        List<RowInputData> listToTableInputData = List.of(
+                new RowInputData(2300, 0.15),
                 new RowInputData(2400, 0.22),
                 new RowInputData(2500, 0.24),
                 new RowInputData(2600, 0.21),
