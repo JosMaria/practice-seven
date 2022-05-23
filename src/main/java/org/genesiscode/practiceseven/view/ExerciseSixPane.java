@@ -1,17 +1,21 @@
 package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseSix;
 import org.genesiscode.practiceseven.service.utils.Util;
-import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
+import org.genesiscode.practiceseven.view.row.five.RowInputData;
+
+import java.util.List;
 
 public class ExerciseSixPane extends MyPane {
 
     private static ExerciseSixPane exerciseSixPane;
     private final ExerciseSix exerciseSix;
-    private TableView<RowRandomNumbers> randomNumbersTable;
+    private TableView<RowInputData> demandTable, deliveryTimeTable;
 
     public ExerciseSixPane() {
         super("EJERCICIO 6");
@@ -27,6 +31,21 @@ public class ExerciseSixPane extends MyPane {
     public void loadControls() {
         buildTableRandomNumbers();
         btnAdd.setOnAction(actionEvent -> click_btn_add());
+
+        demandTable = new TableView<>();
+        deliveryTimeTable = new TableView<>();
+        buildInputTable(demandTable, "Demanda por\nSemana");
+        buildInputTable(deliveryTimeTable, "Tiempo de\nEntrega");
+    }
+
+    private void buildInputTable(TableView<RowInputData> table, String titleToColOne) {
+        TableColumn<RowInputData, Integer> colDemand =
+                column(titleToColOne, "numberOfPrograms", 110);
+        TableColumn<RowInputData, Double> colDeliveryTime =
+                column("Probabilidad", "probability", 110);
+        table.getColumns().addAll(List.of(colDemand, colDeliveryTime));
+        table.setPrefWidth(220);
+
     }
 
     private void click_btn_add() {
@@ -36,8 +55,14 @@ public class ExerciseSixPane extends MyPane {
     public void buildPane() {
         VBox randomNumbersPane = new VBox(10, inputPane, tableRandomNumbers);
         randomNumbersPane.setAlignment(Pos.CENTER);
-
         randomNumbersPane.setFillWidth(false);
-        mainPane = new VBox(10, title, randomNumbersPane);
+
+        VBox inputPane = new VBox(20, demandTable, deliveryTimeTable);
+        inputPane.setAlignment(Pos.CENTER);
+        inputPane.setFillWidth(false);
+
+        HBox pane = new HBox(20, randomNumbersPane, inputPane);
+        pane.setAlignment(Pos.CENTER);
+        mainPane = new VBox(10, title, pane);
     }
 }
