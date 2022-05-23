@@ -3,6 +3,7 @@ package org.genesiscode.practiceseven.service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
 
@@ -27,5 +28,16 @@ public class ExerciseFive {
 
     public ObservableList<RowInputData> getListToTableInputData() {
         return listToTableInputData;
+    }
+
+    public ObservableList<RowRandomNumbers> loadRandomNumber(List<Double> randomNumbers) {
+        this.randomNumbers = randomNumbers;
+        ObservableList<RowRandomNumbers> randomNumbersRandom = FXCollections.observableArrayList();
+        int counter = 1;
+        for (double randomNumber : this.randomNumbers) {
+            randomNumbersRandom.add(new RowRandomNumbers(counter, randomNumber));
+            counter++;
+        }
+        return randomNumbersRandom;
     }
 }

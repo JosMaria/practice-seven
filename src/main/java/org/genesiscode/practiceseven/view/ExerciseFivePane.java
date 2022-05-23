@@ -1,10 +1,13 @@
 package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFive;
+import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
 
 import java.util.List;
@@ -30,11 +33,27 @@ public class ExerciseFivePane extends MyPane {
     public void loadControls() {
         tableInputData = new TableView<>();
         buildTableInputData();
+        buildTableRandomNumbers();
+
+        btnAdd.setOnAction(actionEvent -> click_btn_add());
+    }
+
+    private void click_btn_add() {
+        List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
+        tableRandomNumbers.setItems(exerciseFive.loadRandomNumber(randomNumbers));
     }
 
     public void buildPane() {
-        mainPane = new VBox(10, title, tableInputData);
-        mainPane.setPadding(new Insets(30));
+        VBox randomNumberAndInputPane = new VBox(10, inputPane, tableRandomNumbers);
+        randomNumberAndInputPane.setFillWidth(false);
+        randomNumberAndInputPane.setAlignment(Pos.CENTER);
+
+        HBox pane = new HBox(20, randomNumberAndInputPane, tableInputData);
+        pane.setFillHeight(false);
+        pane.setAlignment(Pos.CENTER);
+
+        mainPane = new VBox(10, title, pane);
+        mainPane.setAlignment(Pos.CENTER);
     }
 
     private void buildTableInputData() {

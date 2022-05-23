@@ -1,12 +1,10 @@
 package org.genesiscode.practiceseven.view;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import org.genesiscode.practiceseven.view.row.four.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
 
@@ -14,21 +12,25 @@ public class MyPane {
 
     protected VBox mainPane;
     protected Label title;
-    protected TableView<RowInputData> tableRandomNumbers;
+    protected TableView<RowRandomNumbers> tableRandomNumbers;
+    protected TextField txtRandomNumbers;
+    protected Button btnAdd;
+    protected VBox inputPane;
 
     protected MyPane(String titleHeader) {
         title = new Label(titleHeader);
         title.setFont(new Font("Gargi", 20));
         tableRandomNumbers = new TableView<>();
-    }
 
-    protected VBox getMainPane() {
-        return mainPane;
+        txtRandomNumbers = new TextField();
+        txtRandomNumbers.setPrefColumnCount(20);
+        btnAdd = new Button("Agregar");
+        inputPane = new VBox(10, new Label("Numeros Aleatorios"), txtRandomNumbers, btnAdd);
     }
 
     protected void buildTableRandomNumbers() {
-        TableColumn<RowInputData, Integer> colRow = column("Fila", "data", 50);
-        TableColumn<RowInputData, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 120);
+        TableColumn<RowRandomNumbers, Integer> colRow = column("Fila", "data", 50);
+        TableColumn<RowRandomNumbers, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 120);
         tableRandomNumbers.getColumns().addAll(List.of(colRow, colRandomNumbers));
         tableRandomNumbers.setPrefWidth(150);
         tableRandomNumbers.setPrefHeight(300);

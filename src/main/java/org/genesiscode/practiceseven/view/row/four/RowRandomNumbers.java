@@ -1,11 +1,11 @@
 package org.genesiscode.practiceseven.view.row.four;
 
-public class RowInputData {
+public class RowRandomNumbers {
 
     private int data;
     private double value;
 
-    public RowInputData(int data, double value) {
+    public RowRandomNumbers(int data, double value) {
         this.data = data;
         this.value = value;
     }
