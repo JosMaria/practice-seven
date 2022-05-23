@@ -6,13 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFour;
 import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
-import org.genesiscode.practiceseven.view.row.four.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 import org.genesiscode.practiceseven.view.row.four.RowResult;
 
 import java.util.List;
@@ -21,11 +20,10 @@ public class ExerciseFourPane extends MyPane {
 
     private static ExerciseFourPane exerciseFourPane;
     private final ExerciseFour exerciseFour;
-    private TableView<RowInputData> tableRandomNumbers, tableOfTime, tableOfCustomerArrival;
+    private TableView<RowRandomNumbers> tableOfTime, tableOfCustomerArrival;
     private TableView<RowDataProcessed> tableDataOfTime, tableDataOfCustomerArrival;
     private TableView<RowResult> tableResult;
-    private TextField txtRandomNumbers;
-    private Button btnAdd, btnStart;
+    private Button btnStart;
 
     public ExerciseFourPane() {
         super("EJERCICIO 4");
@@ -39,12 +37,8 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void loadControls() {
-        txtRandomNumbers = new TextField();
-        txtRandomNumbers.setPrefColumnCount(20);
-        btnAdd = new Button("Agregar");
         btnAdd.setOnAction(actionEvent -> click_btn_add());
 
-        tableRandomNumbers = new TableView<>();
         buildTableRandomNumbers();
         tableOfTime = new TableView<>();
         buildTableOfTime();
@@ -76,7 +70,6 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void buildPane() {
-        VBox inputPane = new VBox(10, new Label("Numeros Aleatorios"), txtRandomNumbers, btnAdd);
         VBox randomNumbersPane = new VBox(10, inputPane, tableRandomNumbers, btnStart);
         randomNumbersPane.setFillWidth(false);
         randomNumbersPane.setAlignment(Pos.CENTER);
@@ -89,17 +82,9 @@ public class ExerciseFourPane extends MyPane {
         mainPane.setPadding(new Insets(30));
     }
 
-    private void buildTableRandomNumbers() {
-        TableColumn<RowInputData, Integer> colRow = column("Fila", "data", 50);
-        TableColumn<RowInputData, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 120);
-        tableRandomNumbers.getColumns().addAll(List.of(colRow, colRandomNumbers));
-        tableRandomNumbers.setPrefWidth(150);
-        tableRandomNumbers.setPrefHeight(300);
-    }
-
     private void buildTableOfTime() {
-        TableColumn<RowInputData, Integer> colRow = column("Tiempo de\nservicio", "data", 80);
-        TableColumn<RowInputData, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 110);
+        TableColumn<RowRandomNumbers, Integer> colRow = column("Tiempo de\nservicio", "data", 80);
+        TableColumn<RowRandomNumbers, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 110);
         tableOfTime.getColumns().addAll(List.of(colRow, colRandomNumbers));
         tableOfTime.setPrefHeight(160);
         tableOfTime.setPrefWidth(220);
@@ -107,8 +92,8 @@ public class ExerciseFourPane extends MyPane {
     }
 
     private void buildTableOfCustomerArrival() {
-        TableColumn<RowInputData, Integer> colRow = column("Tiempo entre\nlas llegadas", "data", 120);
-        TableColumn<RowInputData, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 120);
+        TableColumn<RowRandomNumbers, Integer> colRow = column("Tiempo entre\nlas llegadas", "data", 120);
+        TableColumn<RowRandomNumbers, Double> colRandomNumbers = column("Probabilidad\n(Frecuencia)", "value", 120);
         tableOfCustomerArrival.getColumns().addAll(List.of(colRow, colRandomNumbers));
         tableOfCustomerArrival.setPrefHeight(160);
         tableOfCustomerArrival.setPrefWidth(260);

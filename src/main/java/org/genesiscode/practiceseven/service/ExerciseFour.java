@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.genesiscode.practiceseven.service.utils.Decimal;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
-import org.genesiscode.practiceseven.view.row.four.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 import org.genesiscode.practiceseven.view.row.four.RowResult;
 
 import java.time.LocalTime;
@@ -13,50 +13,50 @@ import java.util.List;
 public class ExerciseFour {
 
     private List<Double> randomNumbers;
-    private ObservableList<RowInputData> listToTableOfTime, listToTableOfCustomerArrival;
+    private ObservableList<RowRandomNumbers> listToTableOfTime, listToTableOfCustomerArrival;
 
     public ExerciseFour() {
         load();
     }
 
     private void load() {
-        List<RowInputData> listToTableOfTime = List.of(new RowInputData(0, 0.00),
-                new RowInputData(1, 0.25),
-                new RowInputData(2, 0.20),
-                new RowInputData(3, 0.40),
-                new RowInputData(4, 0.15));
+        List<RowRandomNumbers> listToTableOfTime = List.of(new RowRandomNumbers(0, 0.00),
+                new RowRandomNumbers(1, 0.25),
+                new RowRandomNumbers(2, 0.20),
+                new RowRandomNumbers(3, 0.40),
+                new RowRandomNumbers(4, 0.15));
         this.listToTableOfTime = FXCollections.observableList(listToTableOfTime);
 
-        List<RowInputData> listToTableOfCustomerArrival = List.of(
-                new RowInputData(0, 0.10), new RowInputData(1, 0.35),
-                new RowInputData(2, 0.25), new RowInputData(3, 0.15),
-                new RowInputData(4, 0.10), new RowInputData(5, 0.05));
+        List<RowRandomNumbers> listToTableOfCustomerArrival = List.of(
+                new RowRandomNumbers(0, 0.10), new RowRandomNumbers(1, 0.35),
+                new RowRandomNumbers(2, 0.25), new RowRandomNumbers(3, 0.15),
+                new RowRandomNumbers(4, 0.10), new RowRandomNumbers(5, 0.05));
         this.listToTableOfCustomerArrival = FXCollections.observableList(listToTableOfCustomerArrival);
     }
 
-    public ObservableList<RowInputData> getListToTableOfTime() {
+    public ObservableList<RowRandomNumbers> getListToTableOfTime() {
         return listToTableOfTime;
     }
 
-    public ObservableList<RowInputData> getListToTableOfCustomerArrival() {
+    public ObservableList<RowRandomNumbers> getListToTableOfCustomerArrival() {
         return listToTableOfCustomerArrival;
     }
 
-    public ObservableList<RowInputData> getList(List<Double> randomNumbers) {
+    public ObservableList<RowRandomNumbers> getList(List<Double> randomNumbers) {
         this.randomNumbers = randomNumbers;
-        ObservableList<RowInputData> list = FXCollections.observableArrayList();
+        ObservableList<RowRandomNumbers> list = FXCollections.observableArrayList();
         int counter = 1;
         for (Double randomNumber : this.randomNumbers) {
-            list.add(new RowInputData(counter, randomNumber));
+            list.add(new RowRandomNumbers(counter, randomNumber));
             counter++;
         }
         return list;
     }
 
-    public ObservableList<RowDataProcessed> getListToTableOf(ObservableList<RowInputData> listToTableOfTime) {
+    public ObservableList<RowDataProcessed> getListToTableOf(ObservableList<RowRandomNumbers> listToTableOfTime) {
         ObservableList<RowDataProcessed> list = FXCollections.observableArrayList();
         double accumulated = 0.0;
-        for (RowInputData row : listToTableOfTime) {
+        for (RowRandomNumbers row : listToTableOfTime) {
             if (row.getValue() != 0.0) {
                 double probability = row.getValue();
                 double startRange = accumulated;
