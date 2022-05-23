@@ -4,14 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.genesiscode.practiceseven.service.utils.Decimal;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
+import org.genesiscode.practiceseven.view.row.five.RowResult;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ExerciseFive {
 
     private ObservableList<RowInputData> listToTableInputData;
+    private ObservableList<RowDataProcessed> listToTableDataProcessed;
+    private ObservableList<RowResult> listToResult;
     private List<Double> randomNumbers;
 
     public ExerciseFive() {
@@ -59,6 +64,39 @@ public class ExerciseFive {
             rowToAdd.setEndRange(endRange);
             list.add(rowToAdd);
         }
+        listToTableDataProcessed = list;
         return list;
+    }
+
+    public ObservableList<RowResult> getListResult(double produce, double sell, int quantity, int simulatedGames) {
+        ObservableList<RowResult> list = FXCollections.observableArrayList();
+        int day, demand, revenue;
+        double randomNumber;
+        for (int i = 0; i < simulatedGames; i++) {
+            day = i + 1;
+            randomNumber = randomNumbers.get(i);
+            demand = getProgramSalesGiven(randomNumber);
+            revenue = (int) (demand < quantity ? (sell * demand) - (produce * quantity) : (sell * quantity) - (produce * quantity));
+            list.add(new RowResult(day, randomNumber, demand, revenue));
+        }
+        listToResult = list;
+        return list;
+    }
+
+    private int getProgramSalesGiven(double randomNumber) {
+        return listToTableDataProcessed.stream()
+                .filter(row -> row.getStartRange() <= randomNumber && randomNumber < row.getEndRange())
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Doesn't exists"))
+                .getData();
+    }
+
+    public int getTotal() {
+        List<Integer> collect = listToResult.stream().map(RowResult::getRevenue).toList();
+        int total = 0;
+        for (int number : collect) {
+            total += number;
+        }
+        return total;
     }
 }

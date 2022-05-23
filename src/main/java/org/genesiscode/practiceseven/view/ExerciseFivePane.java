@@ -1,6 +1,5 @@
 package org.genesiscode.practiceseven.view;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -10,6 +9,7 @@ import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFive;
 import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
+import org.genesiscode.practiceseven.view.row.five.RowResult;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class ExerciseFivePane extends MyPane {
 
     private TableView<RowInputData> tableInputData;
     private TableView<RowDataProcessed> programsSalesTable;
+    private TableView<RowResult> resultTable;
     private Button btnStart;
 
     public ExerciseFivePane() {
@@ -46,7 +47,8 @@ public class ExerciseFivePane extends MyPane {
 
     private void click_btn_start() {
         programsSalesTable.setItems(exerciseFive.listOfIntervals());
-        ExerciseFivePaneAssist.show(programsSalesTable);
+        resultTable.setItems(exerciseFive.getListResult(0.8, 2, 2600, 10));
+        ExerciseFivePaneAssist.show(programsSalesTable, resultTable, exerciseFive.getTotal());
     }
 
     private void click_btn_add() {
@@ -68,6 +70,18 @@ public class ExerciseFivePane extends MyPane {
 
         programsSalesTable = new TableView<>();
         buildProgramsSalesTable();
+
+        resultTable = new TableView<>();
+        buildResultTable();
+    }
+
+    private void buildResultTable() {
+        TableColumn<RowResult, Integer> colDay = column("Dia", "day", 50);
+        TableColumn<RowResult, Double> colRandomNumber = column("#Aleatorio", "randomNumber", 100);
+        TableColumn<RowResult, Integer> colDemand = column("Demanda", "demand", 100);
+        TableColumn<RowResult, Integer> colRevenue = column("Ganancia", "revenue", 100);
+        resultTable.getColumns().addAll(List.of(colDay, colRandomNumber, colDemand, colRevenue));
+        resultTable.setPrefHeight(190);
     }
 
     private void buildProgramsSalesTable() {
