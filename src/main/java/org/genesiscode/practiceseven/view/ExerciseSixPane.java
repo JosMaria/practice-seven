@@ -1,5 +1,6 @@
 package org.genesiscode.practiceseven.view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,18 +35,20 @@ public class ExerciseSixPane extends MyPane {
 
         demandTable = new TableView<>();
         deliveryTimeTable = new TableView<>();
-        buildInputTable(demandTable, "Demanda por\nSemana");
-        buildInputTable(deliveryTimeTable, "Tiempo de\nEntrega");
+        buildInputTable(demandTable, "Demanda por\nSemana", 160);
+        buildInputTable(deliveryTimeTable, "Tiempo de\nEntrega", 120);
+        demandTable.setItems(exerciseSix.getListToDemandTable());
+        deliveryTimeTable.setItems(exerciseSix.getListToDeliveryTimeTable());
     }
 
-    private void buildInputTable(TableView<RowInputData> table, String titleToColOne) {
+    private void buildInputTable(TableView<RowInputData> table, String titleToColOne, double height) {
         TableColumn<RowInputData, Integer> colDemand =
                 column(titleToColOne, "numberOfPrograms", 110);
         TableColumn<RowInputData, Double> colDeliveryTime =
-                column("Probabilidad", "probability", 110);
+                column("Probabilidad", "probability", 105);
         table.getColumns().addAll(List.of(colDemand, colDeliveryTime));
-        table.setPrefWidth(220);
-
+        table.setPrefWidth(230);
+        table.setMaxHeight(height);
     }
 
     private void click_btn_add() {
@@ -64,5 +67,7 @@ public class ExerciseSixPane extends MyPane {
         HBox pane = new HBox(20, randomNumbersPane, inputPane);
         pane.setAlignment(Pos.CENTER);
         mainPane = new VBox(10, title, pane);
+        mainPane.setAlignment(Pos.CENTER);
+        mainPane.setPadding(new Insets(10));
     }
 }
