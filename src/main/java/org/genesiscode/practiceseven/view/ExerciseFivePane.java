@@ -2,6 +2,7 @@ package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
@@ -9,6 +10,7 @@ import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFive;
 import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class ExerciseFivePane extends MyPane {
     private final ExerciseFive exerciseFive;
 
     private TableView<RowInputData> tableInputData;
+    private TableView<RowDataProcessed> programsSalesTable;
+    private Button btnStart;
 
     public ExerciseFivePane() {
         super("EJERCICIO 5");
@@ -36,6 +40,13 @@ public class ExerciseFivePane extends MyPane {
         buildTableRandomNumbers();
 
         btnAdd.setOnAction(actionEvent -> click_btn_add());
+        btnStart = new Button("Empezar");
+        btnStart.setOnAction(actionEvent -> click_btn_start());
+    }
+
+    private void click_btn_start() {
+        programsSalesTable.setItems(exerciseFive.listOfIntervals());
+        ExerciseFivePaneAssist.show(programsSalesTable);
     }
 
     private void click_btn_add() {
@@ -44,7 +55,7 @@ public class ExerciseFivePane extends MyPane {
     }
 
     public void buildPane() {
-        VBox randomNumberAndInputPane = new VBox(10, inputPane, tableRandomNumbers);
+        VBox randomNumberAndInputPane = new VBox(10, inputPane, tableRandomNumbers, btnStart);
         randomNumberAndInputPane.setFillWidth(false);
         randomNumberAndInputPane.setAlignment(Pos.CENTER);
 
@@ -54,6 +65,26 @@ public class ExerciseFivePane extends MyPane {
 
         mainPane = new VBox(10, title, pane);
         mainPane.setAlignment(Pos.CENTER);
+
+        programsSalesTable = new TableView<>();
+        buildProgramsSalesTable();
+    }
+
+    private void buildProgramsSalesTable() {
+        TableColumn<RowDataProcessed, Double> colProbability =
+                column("Probabilidad", "probability", 100);
+
+        TableColumn<RowDataProcessed, Double> colAccumulated =
+                column("Distribucion\nAcumulada", "accumulatedDistribution", 100);
+
+        TableColumn<RowDataProcessed, String> colRange =
+                column("Rangos de\n# aleatorios", "range", 100);
+
+        TableColumn<RowDataProcessed, Integer> colData =
+                column("Programas\nVendidos", "data", 100);
+
+        programsSalesTable.getColumns().addAll(List.of(colProbability, colAccumulated, colRange, colData));
+        programsSalesTable.setPrefHeight(170);
     }
 
     private void buildTableInputData() {
