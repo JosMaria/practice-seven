@@ -74,7 +74,7 @@ public class ExerciseFivePane extends MyPane {
 
     private void click_btn_add() {
         List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
-        tableRandomNumbers.setItems(exerciseFive.loadRandomNumber(randomNumbers));
+        tableRandomNumbers.setItems(exerciseFive.loadRandomNumbers(randomNumbers));
     }
 
     public void buildPane() {

@@ -30,9 +30,9 @@ public class MyPane {
 
     protected void buildTableRandomNumbers() {
         TableColumn<RowRandomNumbers, Integer> colRow = column("Fila", "data", 50);
-        TableColumn<RowRandomNumbers, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 120);
+        TableColumn<RowRandomNumbers, Double> colRandomNumbers = column("Numeros\nAletorios", "value", 110);
         tableRandomNumbers.getColumns().addAll(List.of(colRow, colRandomNumbers));
-        tableRandomNumbers.setPrefWidth(150);
+        tableRandomNumbers.setPrefWidth(180);
         tableRandomNumbers.setPrefHeight(300);
     }
 

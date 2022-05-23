@@ -6,16 +6,14 @@ import org.genesiscode.practiceseven.service.utils.Decimal;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
 import org.genesiscode.practiceseven.view.row.five.RowResult;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
-import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
 
-public class ExerciseFive {
+public class ExerciseFive extends Exercise {
 
     private ObservableList<RowInputData> listToTableInputData;
     private ObservableList<RowDataProcessed> listToTableDataProcessed;
     private ObservableList<RowResult> listToResult;
-    private List<Double> randomNumbers;
 
     public ExerciseFive() {
         load();
@@ -35,16 +33,6 @@ public class ExerciseFive {
         return listToTableInputData;
     }
 
-    public ObservableList<RowRandomNumbers> loadRandomNumber(List<Double> randomNumbers) {
-        this.randomNumbers = randomNumbers;
-        ObservableList<RowRandomNumbers> randomNumbersRandom = FXCollections.observableArrayList();
-        int counter = 1;
-        for (double randomNumber : this.randomNumbers) {
-            randomNumbersRandom.add(new RowRandomNumbers(counter, randomNumber));
-            counter++;
-        }
-        return randomNumbersRandom;
-    }
 
     public ObservableList<RowDataProcessed> listOfIntervals() {
         ObservableList<RowDataProcessed> list = FXCollections.observableArrayList();
