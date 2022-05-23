@@ -3,7 +3,9 @@ package org.genesiscode.practiceseven.service;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
+import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 
 import java.util.List;
 
@@ -27,6 +29,14 @@ public class ExerciseSix extends Exercise {
                 new RowInputData(1, 0.15),
                 new RowInputData(2, 0.35),
                 new RowInputData(3, 0.50)));
+    }
+
+    public ObservableList<RowDataProcessed> loadListToDemandTable() {
+        return Util.listOfIntervals(listToDemandTable);
+    }
+
+    public ObservableList<RowDataProcessed> loadListToDeliveryTimeTable() {
+        return Util.listOfIntervals(listToDeliveryTimeTable);
     }
 
     public ObservableList<RowInputData> getListToDemandTable() {

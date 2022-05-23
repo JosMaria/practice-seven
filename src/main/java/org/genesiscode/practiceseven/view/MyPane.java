@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
@@ -26,6 +27,25 @@ public class MyPane {
         txtRandomNumbers.setPrefColumnCount(20);
         btnAdd = new Button("Agregar");
         inputPane = new VBox(10, new Label("Numeros Aleatorios"), txtRandomNumbers, btnAdd);
+    }
+
+    protected TableView<RowDataProcessed> buildDataProcessedTable(String ultTitle) {
+        TableView<RowDataProcessed> table = new TableView<>();
+        TableColumn<RowDataProcessed, Double> colProbability =
+                column("Probabilidad", "probability", 100);
+
+        TableColumn<RowDataProcessed, Double> colAccumulated =
+                column("Distribucion\nAcumulada", "accumulatedDistribution", 100);
+
+        TableColumn<RowDataProcessed, String> colRange =
+                column("Rangos de\n# aleatorios", "range", 100);
+
+        TableColumn<RowDataProcessed, Integer> colData =
+                column(ultTitle, "data", 100);
+
+        table.getColumns().addAll(List.of(colProbability, colAccumulated, colRange, colData));
+        table.setPrefHeight(170);
+        return table;
     }
 
     protected void buildTableRandomNumbers() {
