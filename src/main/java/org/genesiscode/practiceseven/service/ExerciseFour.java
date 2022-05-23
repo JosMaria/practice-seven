@@ -10,9 +10,8 @@ import org.genesiscode.practiceseven.view.row.four.RowResult;
 import java.time.LocalTime;
 import java.util.List;
 
-public class ExerciseFour {
+public class ExerciseFour extends Exercise {
 
-    private List<Double> randomNumbers;
     private ObservableList<RowRandomNumbers> listToTableOfTime, listToTableOfCustomerArrival;
 
     public ExerciseFour() {
@@ -40,17 +39,6 @@ public class ExerciseFour {
 
     public ObservableList<RowRandomNumbers> getListToTableOfCustomerArrival() {
         return listToTableOfCustomerArrival;
-    }
-
-    public ObservableList<RowRandomNumbers> getList(List<Double> randomNumbers) {
-        this.randomNumbers = randomNumbers;
-        ObservableList<RowRandomNumbers> list = FXCollections.observableArrayList();
-        int counter = 1;
-        for (Double randomNumber : this.randomNumbers) {
-            list.add(new RowRandomNumbers(counter, randomNumber));
-            counter++;
-        }
-        return list;
     }
 
     public ObservableList<RowDataProcessed> getListToTableOf(ObservableList<RowRandomNumbers> listToTableOfTime) {

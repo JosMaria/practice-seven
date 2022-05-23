@@ -59,7 +59,7 @@ public class ExerciseFourPane extends MyPane {
 
     private void click_btn_add() {
         List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
-        tableRandomNumbers.setItems(exerciseFour.getList(randomNumbers));
+        tableRandomNumbers.setItems(exerciseFour.loadRandomNumbers(randomNumbers));
     }
 
     private void click_btn_start() {

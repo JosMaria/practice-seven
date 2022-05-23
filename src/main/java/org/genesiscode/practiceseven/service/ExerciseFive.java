@@ -3,6 +3,7 @@ package org.genesiscode.practiceseven.service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.genesiscode.practiceseven.service.utils.Decimal;
+import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
 import org.genesiscode.practiceseven.view.row.five.RowResult;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
@@ -35,23 +36,8 @@ public class ExerciseFive extends Exercise {
 
 
     public ObservableList<RowDataProcessed> listOfIntervals() {
-        ObservableList<RowDataProcessed> list = FXCollections.observableArrayList();
-        double accumulated = 0, startRange, endRange;
-        for (RowInputData row : listToTableInputData) {
-            double probability = row.getProbability();
-            startRange = accumulated;
-            accumulated += probability;
-            accumulated = Decimal.getDecimal(2, accumulated);
-            endRange = accumulated;
-
-            RowDataProcessed rowToAdd = new RowDataProcessed(probability, accumulated,
-                    String.format("[%s - %s)", startRange, endRange), row.getNumberOfPrograms());
-            rowToAdd.setStartRange(startRange);
-            rowToAdd.setEndRange(endRange);
-            list.add(rowToAdd);
-        }
-        listToTableDataProcessed = list;
-        return list;
+        listToTableDataProcessed = Util.listOfIntervals(listToTableInputData);
+        return listToTableDataProcessed;
     }
 
     public ObservableList<RowResult> getListResult(double produce, double sell, int quantity, int simulatedGames) {
