@@ -11,6 +11,7 @@ import org.genesiscode.practiceseven.service.ExerciseSix;
 import org.genesiscode.practiceseven.service.utils.Util;
 import org.genesiscode.practiceseven.view.row.five.RowInputData;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
+import org.genesiscode.practiceseven.view.row.six.RowResult;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ExerciseSixPane extends MyPane {
     private final ExerciseSix exerciseSix;
     private TableView<RowInputData> demandTable, deliveryTimeTable;
     private TableView<RowDataProcessed> dataToDemandTable, dataToDeliveryTimeTable;
+    private TableView<RowResult> resultTable;
     private Button btnStart;
 
     public ExerciseSixPane() {
@@ -49,12 +51,32 @@ public class ExerciseSixPane extends MyPane {
 
         dataToDemandTable = buildDataProcessedTable("Demanda");
         dataToDeliveryTimeTable = buildDataProcessedTable("Tiempo de\nEntrega");
+
+        resultTable = buildResultTable();
+    }
+
+    private TableView<RowResult> buildResultTable() {
+        TableView<RowResult> table = new TableView<>();
+        table.getColumns().addAll(List.of(
+                column("#Semana", "week", 80),
+                column("Unidades\nRecibidas", "unitsReceived", 80),
+                column("Inventario\nInicial", "initialInventory", 80),
+                column("#Aleatorio", "numberRandomOne", 90),
+                column("Demanda", "demand", 80),
+                column("Inventario\nFinal", "finalInventory", 80),
+                column( "Ventas\nPerdidas", "lostSales", 80),
+                column("ORDENAR", "sort", 80),
+                column("#Aleatorio", "numberRandomTwo", 90),
+                column("Tiempo\nEntrega", "deliveryTime", 80)));
+        table.setPrefWidth(820);
+        table.setMaxHeight(240);
+        return table;
     }
 
     private void click_btn_start() {
         dataToDeliveryTimeTable.setItems(exerciseSix.loadListToDeliveryTimeTable());
         dataToDemandTable.setItems(exerciseSix.loadListToDemandTable());
-        ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable);
+        ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable, resultTable);
     }
 
     private void buildInputTable(TableView<RowInputData> table, String titleToColOne, double height) {
