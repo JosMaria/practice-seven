@@ -1,9 +1,7 @@
 package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseFive;
@@ -23,6 +21,7 @@ public class ExerciseFivePane extends MyPane {
     private TableView<RowDataProcessed> programsSalesTable;
     private TableView<RowResult> resultTable;
     private Button btnStart;
+    private TextField txtProduce, txtSales, txtSimulatedGames, txtQuantity;
 
     public ExerciseFivePane() {
         super("EJERCICIO 5");
@@ -43,11 +42,33 @@ public class ExerciseFivePane extends MyPane {
         btnAdd.setOnAction(actionEvent -> click_btn_add());
         btnStart = new Button("Empezar");
         btnStart.setOnAction(actionEvent -> click_btn_start());
+
+        programsSalesTable = new TableView<>();
+        buildProgramsSalesTable();
+
+        resultTable = new TableView<>();
+        buildResultTable();
+
+        txtProduce = getTextField();
+        txtSales = getTextField();
+        txtSimulatedGames = getTextField();
+        txtQuantity = getTextField();
+    }
+
+    private TextField getTextField() {
+        TextField textField = new TextField();
+        textField.setPrefColumnCount(4);
+        return textField;
     }
 
     private void click_btn_start() {
         programsSalesTable.setItems(exerciseFive.listOfIntervals());
-        resultTable.setItems(exerciseFive.getListResult(0.8, 2, 2600, 10));
+        // 0.8, 2, 2600, 10
+        double produce = Double.parseDouble(txtProduce.getText());
+        double sell = Double.parseDouble(txtSales.getText());
+        int quantity = Integer.parseInt(txtQuantity.getText());
+        int simulatedGames = Integer.parseInt(txtSimulatedGames.getText());
+        resultTable.setItems(exerciseFive.getListResult(produce, sell, quantity, simulatedGames));
         ExerciseFivePaneAssist.show(programsSalesTable, resultTable, exerciseFive.getTotal());
     }
 
@@ -61,18 +82,19 @@ public class ExerciseFivePane extends MyPane {
         randomNumberAndInputPane.setFillWidth(false);
         randomNumberAndInputPane.setAlignment(Pos.CENTER);
 
-        HBox pane = new HBox(20, randomNumberAndInputPane, tableInputData);
+        VBox inputDataPane = new VBox(10,
+                new HBox(10, new Label("Produce"), txtProduce),
+                new HBox(10, new Label("Vende"), txtSales),
+                new HBox(10, new Label("Juegos Simulados"), txtSimulatedGames),
+                new HBox(10, new Label("Cantidad"), txtQuantity), tableInputData);
+        inputDataPane.setAlignment(Pos.TOP_LEFT);
+
+        HBox pane = new HBox(20, randomNumberAndInputPane, inputDataPane);
         pane.setFillHeight(false);
         pane.setAlignment(Pos.CENTER);
 
         mainPane = new VBox(10, title, pane);
         mainPane.setAlignment(Pos.CENTER);
-
-        programsSalesTable = new TableView<>();
-        buildProgramsSalesTable();
-
-        resultTable = new TableView<>();
-        buildResultTable();
     }
 
     private void buildResultTable() {
@@ -82,6 +104,7 @@ public class ExerciseFivePane extends MyPane {
         TableColumn<RowResult, Integer> colRevenue = column("Ganancia", "revenue", 100);
         resultTable.getColumns().addAll(List.of(colDay, colRandomNumber, colDemand, colRevenue));
         resultTable.setPrefHeight(190);
+        resultTable.setPrefWidth(350);
     }
 
     private void buildProgramsSalesTable() {

@@ -18,6 +18,7 @@ public class ExerciseFivePaneAssist {
         Label lblTotal = new Label("TOTAL " + total);
         VBox pane = new VBox(20, table, tableResult, new VBox(lblTotal));
         pane.setPadding(new Insets(10));
+        pane.setFillWidth(false);
         stage.setScene(new Scene(pane));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Resultados");

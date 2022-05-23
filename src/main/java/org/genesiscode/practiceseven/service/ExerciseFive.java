@@ -9,8 +9,6 @@ import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
 import org.genesiscode.practiceseven.view.row.four.RowRandomNumbers;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ExerciseFive {
 
