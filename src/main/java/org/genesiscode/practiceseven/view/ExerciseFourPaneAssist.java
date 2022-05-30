@@ -3,6 +3,7 @@ package org.genesiscode.practiceseven.view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,9 +21,11 @@ public class ExerciseFourPaneAssist {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Resultados");
 
-        HBox topPane = new HBox(20, tableOne, tableTwo);
+        HBox topPane = new HBox(20,
+                new VBox(10, new Label("Datos del Tiempo de Servicio"),tableOne),
+                new VBox(10, new Label("Datos de la llegada de los clientes"), tableTwo));
         topPane.setAlignment(Pos.CENTER);
-        VBox pane = new VBox(10, topPane, tableResult);
+        VBox pane = new VBox(20, topPane, tableResult);
         pane.setPadding(new Insets(20));
         Scene scene = new Scene(pane);
         stage.setScene(scene);
