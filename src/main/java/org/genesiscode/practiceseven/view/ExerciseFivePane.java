@@ -43,8 +43,7 @@ public class ExerciseFivePane extends MyPane {
         btnStart = new Button("Empezar");
         btnStart.setOnAction(actionEvent -> click_btn_start());
 
-        programsSalesTable = new TableView<>();
-        buildProgramsSalesTable();
+        programsSalesTable = buildDataProcessedTable("Programas\nVendidos");
 
         resultTable = new TableView<>();
         buildResultTable();
@@ -74,7 +73,7 @@ public class ExerciseFivePane extends MyPane {
 
     private void click_btn_add() {
         List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
-        tableRandomNumbers.setItems(exerciseFive.loadRandomNumber(randomNumbers));
+        tableRandomNumbers.setItems(exerciseFive.loadRandomNumbers(randomNumbers));
     }
 
     public void buildPane() {
@@ -89,7 +88,7 @@ public class ExerciseFivePane extends MyPane {
                 new HBox(10, new Label("Cantidad"), txtQuantity), tableInputData);
         inputDataPane.setAlignment(Pos.TOP_LEFT);
 
-        HBox pane = new HBox(20, randomNumberAndInputPane, inputDataPane);
+        HBox pane = new HBox(50, randomNumberAndInputPane, inputDataPane);
         pane.setFillHeight(false);
         pane.setAlignment(Pos.CENTER);
 
@@ -105,23 +104,6 @@ public class ExerciseFivePane extends MyPane {
         resultTable.getColumns().addAll(List.of(colDay, colRandomNumber, colDemand, colRevenue));
         resultTable.setPrefHeight(190);
         resultTable.setPrefWidth(350);
-    }
-
-    private void buildProgramsSalesTable() {
-        TableColumn<RowDataProcessed, Double> colProbability =
-                column("Probabilidad", "probability", 100);
-
-        TableColumn<RowDataProcessed, Double> colAccumulated =
-                column("Distribucion\nAcumulada", "accumulatedDistribution", 100);
-
-        TableColumn<RowDataProcessed, String> colRange =
-                column("Rangos de\n# aleatorios", "range", 100);
-
-        TableColumn<RowDataProcessed, Integer> colData =
-                column("Programas\nVendidos", "data", 100);
-
-        programsSalesTable.getColumns().addAll(List.of(colProbability, colAccumulated, colRange, colData));
-        programsSalesTable.setPrefHeight(170);
     }
 
     private void buildTableInputData() {

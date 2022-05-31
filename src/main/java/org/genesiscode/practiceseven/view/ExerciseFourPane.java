@@ -59,14 +59,14 @@ public class ExerciseFourPane extends MyPane {
 
     private void click_btn_add() {
         List<Double> randomNumbers = Util.convertToList(txtRandomNumbers.getText());
-        tableRandomNumbers.setItems(exerciseFour.getList(randomNumbers));
+        tableRandomNumbers.setItems(exerciseFour.loadRandomNumbers(randomNumbers));
     }
 
     private void click_btn_start() {
         tableDataOfTime.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfTime()));
         tableDataOfCustomerArrival.setItems(exerciseFour.getListToTableOf(exerciseFour.getListToTableOfCustomerArrival()));
-        ExerciseFourPaneAssist.show(tableDataOfTime, tableDataOfCustomerArrival, tableResult);
         tableResult.setItems(exerciseFour.getListResult(tableDataOfTime.getItems(), tableDataOfCustomerArrival.getItems()));
+        ExerciseFourPaneAssist.show(tableDataOfTime, tableDataOfCustomerArrival, tableResult);
     }
 
     private void buildPane() {
@@ -78,8 +78,11 @@ public class ExerciseFourPane extends MyPane {
         VBox customerArrivalPane = new VBox(10, new Label("Datos de la llegada de los clientes"), tableOfCustomerArrival);
         customerArrivalPane.setFillWidth(false);
         VBox informationPane = new VBox(20, timePane, customerArrivalPane);
-        mainPane = new VBox(10, title, new HBox(30, randomNumbersPane, informationPane));
-        mainPane.setPadding(new Insets(30));
+        HBox pane = new HBox(30, randomNumbersPane, informationPane);
+        pane.setAlignment(Pos.CENTER);
+        mainPane = new VBox(10, title, pane);
+        mainPane.setPadding(new Insets(10));
+        mainPane.setAlignment(Pos.CENTER);
     }
 
     private void buildTableOfTime() {
@@ -108,9 +111,9 @@ public class ExerciseFourPane extends MyPane {
         TableColumn<RowDataProcessed, String> colRange =
                 column("Rango de\n#s aleatorios", "range", 120);
         TableColumn<RowDataProcessed, Integer> colData =
-                column(ultColTitle, "data", 100);
+                column(ultColTitle, "data", 110);
         table.getColumns().addAll(List.of(colProbability, colAccumulated, colRange, colData));
-        table.setPrefWidth(420);
+        table.setPrefWidth(450);
         table.setPrefHeight(150);
     }
 

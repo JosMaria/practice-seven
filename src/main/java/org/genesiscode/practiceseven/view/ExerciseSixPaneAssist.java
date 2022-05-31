@@ -11,24 +11,24 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.genesiscode.practiceseven.view.row.four.RowDataProcessed;
-import org.genesiscode.practiceseven.view.row.four.RowResult;
+import org.genesiscode.practiceseven.view.row.six.RowResult;
 
-public class ExerciseFourPaneAssist {
+public class ExerciseSixPaneAssist {
 
     public static void show(TableView<RowDataProcessed> tableOne, TableView<RowDataProcessed> tableTwo,
-                            TableView<RowResult> tableResult) {
+                            TableView<RowResult> table, int inventoryFinalTotal, int lostSalesTotal) {
         Stage stage = new Stage(StageStyle.DECORATED);
+        HBox pane = new HBox(10, tableOne, tableTwo);
+        pane.setFillHeight(false);
+
+        String msgTotal = "TOTAL:\tInventario Final = %s\tVentas perdidas = %s";
+        VBox main = new VBox(20, pane, table, new Label(String.format(msgTotal, inventoryFinalTotal, lostSalesTotal)));
+        main.setAlignment(Pos.CENTER);
+        main.setPadding(new Insets(20));
+
+        stage.setScene(new Scene(main));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Resultados");
-
-        HBox topPane = new HBox(20,
-                new VBox(10, new Label("Datos del Tiempo de Servicio"),tableOne),
-                new VBox(10, new Label("Datos de la llegada de los clientes"), tableTwo));
-        topPane.setAlignment(Pos.CENTER);
-        VBox pane = new VBox(20, topPane, tableResult);
-        pane.setPadding(new Insets(20));
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
         stage.showAndWait();
     }
 }
