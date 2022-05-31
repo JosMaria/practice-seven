@@ -3,18 +3,18 @@ package org.genesiscode.practiceseven.view.row.six;
 public class RowResult {
 
     private int week;
-    private int unitsReceived;
+    private String unitsReceived;
     private int initialInventory;
     private double numberRandomOne;
     private int demand;
     private int finalInventory;
     private int lostSales;
     private String sort;
-    private double numberRandomTwo;
-    private int deliveryTime;
+    private String numberRandomTwo;
+    private String deliveryTime;
 
-    public RowResult(int week, int unitsReceived, int initialInventory, double numberRandomOne, int demand,
-                     int finalInventory, int lostSales, String sort, double numberRandomTwo, int deliveryTime) {
+    public RowResult(int week, String unitsReceived, int initialInventory, double numberRandomOne, int demand,
+                     int finalInventory, int lostSales, String sort, String numberRandomTwo, String deliveryTime) {
         this.week = week;
         this.unitsReceived = unitsReceived;
         this.initialInventory = initialInventory;
@@ -35,11 +35,11 @@ public class RowResult {
         this.week = week;
     }
 
-    public int getUnitsReceived() {
+    public String getUnitsReceived() {
         return unitsReceived;
     }
 
-    public void setUnitsReceived(int unitsReceived) {
+    public void setUnitsReceived(String unitsReceived) {
         this.unitsReceived = unitsReceived;
     }
 
@@ -91,19 +91,19 @@ public class RowResult {
         this.sort = sort;
     }
 
-    public double getNumberRandomTwo() {
+    public String getNumberRandomTwo() {
         return numberRandomTwo;
     }
 
-    public void setNumberRandomTwo(double numberRandomTwo) {
+    public void setNumberRandomTwo(String numberRandomTwo) {
         this.numberRandomTwo = numberRandomTwo;
     }
 
-    public int getDeliveryTime() {
+    public String getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(int deliveryTime) {
+    public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 }

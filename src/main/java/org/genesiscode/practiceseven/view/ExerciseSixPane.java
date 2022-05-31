@@ -69,14 +69,16 @@ public class ExerciseSixPane extends MyPane {
                 column("#Aleatorio", "numberRandomTwo", 90),
                 column("Tiempo\nEntrega", "deliveryTime", 80)));
         table.setPrefWidth(820);
-        table.setMaxHeight(240);
+        table.setMaxHeight(260);
         return table;
     }
 
     private void click_btn_start() {
         dataToDeliveryTimeTable.setItems(exerciseSix.loadListToDeliveryTimeTable());
         dataToDemandTable.setItems(exerciseSix.loadListToDemandTable());
-        ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable, resultTable);
+        resultTable.setItems(exerciseSix.loadResult());
+        ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable, resultTable,
+                exerciseSix.getFinalInventoryTotal(), exerciseSix.getLostSalesTotal());
     }
 
     private void buildInputTable(TableView<RowInputData> table, String titleToColOne, double height) {

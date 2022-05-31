@@ -88,7 +88,7 @@ public class ExerciseFivePane extends MyPane {
                 new HBox(10, new Label("Cantidad"), txtQuantity), tableInputData);
         inputDataPane.setAlignment(Pos.TOP_LEFT);
 
-        HBox pane = new HBox(20, randomNumberAndInputPane, inputDataPane);
+        HBox pane = new HBox(50, randomNumberAndInputPane, inputDataPane);
         pane.setFillHeight(false);
         pane.setAlignment(Pos.CENTER);
 
