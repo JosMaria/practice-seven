@@ -2,9 +2,7 @@ package org.genesiscode.practiceseven.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.genesiscode.practiceseven.service.ExerciseSix;
@@ -23,6 +21,7 @@ public class ExerciseSixPane extends MyPane {
     private TableView<RowDataProcessed> dataToDemandTable, dataToDeliveryTimeTable;
     private TableView<RowResult> resultTable;
     private Button btnStart;
+    private TextField fieldUnitsReceivedGiven, fieldInitialInventory, fieldOrderOfRefrigerators;
 
     public ExerciseSixPane() {
         super("EJERCICIO 6");
@@ -36,6 +35,13 @@ public class ExerciseSixPane extends MyPane {
     }
 
     public void loadControls() {
+        fieldUnitsReceivedGiven = new TextField();
+        fieldUnitsReceivedGiven.setPrefColumnCount(5);
+        fieldInitialInventory = new TextField();
+        fieldInitialInventory.setPrefColumnCount(5);
+        fieldOrderOfRefrigerators = new TextField();
+        fieldOrderOfRefrigerators.setPrefColumnCount(5);
+
         buildTableRandomNumbers();
         btnAdd.setOnAction(actionEvent -> click_btn_add());
 
@@ -53,6 +59,19 @@ public class ExerciseSixPane extends MyPane {
         dataToDeliveryTimeTable = buildDataProcessedTable("Tiempo de\nEntrega");
 
         resultTable = buildResultTable();
+    }
+
+    private VBox buildInputPane() {
+        HBox paneOne = new HBox(10, new Label("Unidades Recibidas"), fieldUnitsReceivedGiven);
+        paneOne.setAlignment(Pos.CENTER_RIGHT);
+        HBox paneTwo = new HBox(10, new Label("Inventario Inicial"), fieldInitialInventory);
+        paneTwo.setAlignment(Pos.CENTER_RIGHT);
+        HBox paneThree = new HBox(10, new Label("Orden refrigeradores"), fieldOrderOfRefrigerators);
+        paneThree.setAlignment(Pos.CENTER_RIGHT);
+
+        VBox pane = new VBox(10, paneOne, paneTwo, paneThree);
+        pane.setAlignment(Pos.CENTER);
+        return pane;
     }
 
     private TableView<RowResult> buildResultTable() {
@@ -76,9 +95,17 @@ public class ExerciseSixPane extends MyPane {
     private void click_btn_start() {
         dataToDeliveryTimeTable.setItems(exerciseSix.loadListToDeliveryTimeTable());
         dataToDemandTable.setItems(exerciseSix.loadListToDemandTable());
-        resultTable.setItems(exerciseSix.loadResult());
-        ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable, resultTable,
-                exerciseSix.getFinalInventoryTotal(), exerciseSix.getLostSalesTotal());
+
+        try {
+            int unitsReceivedGiven = Integer.parseInt(fieldUnitsReceivedGiven.getText());
+            int initialInventory = Integer.parseInt(fieldInitialInventory.getText());
+            int orderOfRefrigerators = Integer.parseInt(fieldOrderOfRefrigerators.getText());
+            resultTable.setItems(exerciseSix.loadResult(unitsReceivedGiven, initialInventory, orderOfRefrigerators));
+            ExerciseSixPaneAssist.show(dataToDemandTable, dataToDeliveryTimeTable, resultTable,
+                    exerciseSix.getFinalInventoryTotal(), exerciseSix.getLostSalesTotal());
+        } catch (Exception e) {
+            MessageBox.show();
+        }
     }
 
     private void buildInputTable(TableView<RowInputData> table, String titleToColOne, double height) {
@@ -104,7 +131,10 @@ public class ExerciseSixPane extends MyPane {
         inputPane.setAlignment(Pos.CENTER);
         inputPane.setFillWidth(false);
 
-        HBox pane = new HBox(20, randomNumbersPane, inputPane);
+        VBox rightPane = new VBox(30, buildInputPane(), inputPane);
+        rightPane.setAlignment(Pos.CENTER);
+
+        HBox pane = new HBox(20, randomNumbersPane, rightPane);
         pane.setAlignment(Pos.CENTER);
         mainPane = new VBox(10, title, pane);
         mainPane.setAlignment(Pos.CENTER);

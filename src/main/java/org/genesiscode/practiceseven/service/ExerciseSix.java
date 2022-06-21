@@ -35,13 +35,10 @@ public class ExerciseSix extends Exercise {
                 new RowInputData(3, 0.50)));
     }
 
-    public ObservableList<RowResult> loadResult() {
+    public ObservableList<RowResult> loadResult(int unitsReceivedGiven, int initialInventory, int orderOfRefrigerators) {
         ObservableList<RowResult> list = FXCollections.observableArrayList();
-        // block input data
-        int unitsReceivedGiven = 10, initialInventory = 5, orderOfRefrigerators = 2;
-        boolean alreadyPrint = false;
-        // end block
 
+        boolean alreadyPrint = false;
         int week = 1, lostSales, finalInventory, demand, deliveryTime = 0, unitsReceived = 0;
         double randomNumberOne, randomNumberTwo = 0;
         String sort = "";
